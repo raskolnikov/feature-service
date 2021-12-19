@@ -1,0 +1,2 @@
+INSERT INTO users (id,created_at,created_by, status, updated_at, updated_by, email, first_name, last_name, mobile_number, password, role)
+values (1, '2021-12-17 17:13:04.305823', 1, 'ACTIVE', '2021-12-17 17:13:04.305823', 1, 'admin@yopmail.com', 'admin first name', 'last name', '447777777777', '$2a$10$cHMI53vitN5Q7QNS7JJMD.3/BZ27TneL1BsTD9LHPxcRSWScIJfji', 'ADMIN' );
