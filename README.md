@@ -47,7 +47,7 @@ When application starts, it creates default admin user
 ```json
 {
 
-	"logonName" : "admin@yopmail.com",
+    "logonName" : "admin@yopmail.com",
     "password": "simple"
 
 }
@@ -69,7 +69,7 @@ Request Model :
 ```json
 {
 
-	"logonName" : "admin@yopmail.com",
+    "logonName" : "admin@yopmail.com",
     "password": "simple"
 
 }
