@@ -22,9 +22,9 @@ spring:
 
   datasource:
     platform: postgres
-    url: jdbc:postgresql://localhost:5432/mettle
-    username: mettle
-    password: 285051
+    url: jdbc:postgresql://localhost:5432/{DBNAME}
+    username: {USERNAME}
+    password: {PASSWORD}
 
   logging:
     level: DEBUG
