@@ -18,16 +18,6 @@ Here are the requirements for this service:
 
 ### Pre-Requirement
 - Java 11
-- Postgres 13
-   - Start the Postgres server and create a database with any name, username and password
-      - Then assign those parameters in to application.yml, by replacing {DBNAME}, {USERNAME}, {PASSWORD};
-        ```yaml
-        datasource:
-        platform: postgres
-        url: jdbc:postgresql://localhost:5432/{DBNAME}
-        username: {USERNAME}
-        password: {PASSWORD}
-        ```
 
 ### Postman Collections
 
