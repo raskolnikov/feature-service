@@ -6,12 +6,18 @@ spring:
     pathmatch:
       matching-strategy=ant_path_matcher: ant_path_matcher
 
+  h2:
+    console.enabled: true
+    console.path: /h2-console
+    console.settings.trace: false
+    console.settings.web-allow-others: false
+
   jackson:
     serialization:
       FAIL_ON_EMPTY_BEANS: false
 
   jpa:
-    database: POSTGRESQL
+    database: H2
     show-sql: true
     hibernate:
       ddl-auto: validate
@@ -21,10 +27,10 @@ spring:
       jadira.usertype.javaZone: UTC
 
   datasource:
-    platform: postgres
-    url: jdbc:postgresql://localhost:5432/{DBNAME}
-    username: {USERNAME}
-    password: {PASSWORD}
+    url: jdbc:h2:mem:mydb;MODE=PostgreSQL
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
 
   logging:
     level: DEBUG

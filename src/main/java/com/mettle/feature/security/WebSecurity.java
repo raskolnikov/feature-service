@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
@@ -28,6 +27,11 @@ import static com.mettle.feature.security.JwtAuthenticationFilter.JWT_TOKEN;
 @Configuration
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
+
+	private static final String[] AUTH_WHITELIST = {
+			"/h2-console/**"
+			// other public endpoints of your API may be appended to this array
+	};
 
 	private final UserAuthenticationService userDetailsService;
 	private final PasswordEncoder passwordEncoder;
@@ -47,6 +51,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				.csrf()
 				.disable()
 				.authorizeRequests()
+				.antMatchers(AUTH_WHITELIST)
+				.permitAll()
 				.expressionHandler(webExpressionHandler())
 				.antMatchers("api/v1/*")
 				.hasRole(Role.USER.name())
@@ -56,10 +62,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				.authenticated()
 				.and()
 				.addFilter(new JwtAuthenticationFilter(authenticationManager()))
-				.addFilter(new JwtAuthorizationFilter(authenticationManager()))
-				// this disables session creation on Spring Security
-				.sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+				.addFilter(new JwtAuthorizationFilter(authenticationManager()));
+
+		http.headers().frameOptions().disable();
+
 	}
 
 
