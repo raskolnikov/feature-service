@@ -2,7 +2,7 @@ package com.mettle.feature.exception.component;
 
 import com.mettle.feature.exception.InvalidRequestParamException;
 import com.mettle.feature.exception.NotFoundException;
-import org.postgresql.util.PSQLException;
+import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -93,14 +94,15 @@ public class ControllerExceptionHandler {
 	}
 
 
-	@ExceptionHandler(PSQLException.class)
+	@ExceptionHandler(JdbcSQLIntegrityConstraintViolationException.class)
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	public @ResponseBody
-	ExceptionResponse handlePSQLException(final PSQLException ex, final HttpServletRequest request) {
+	ExceptionResponse handlePSQLException(final JdbcSQLIntegrityConstraintViolationException ex,
+			final HttpServletRequest request) {
 
 		ExceptionResponse exceptionResponse = new ExceptionResponse();
 
-		exceptionResponse.setErrorMessage(ex.getMessage());
+		exceptionResponse.setErrorMessage(ex.getOriginalMessage());
 		exceptionResponse.setRequestedURI(request.getRequestURI());
 
 		LOGGER.error(ex.getMessage());
